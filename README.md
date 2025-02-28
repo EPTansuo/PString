@@ -6,7 +6,7 @@ PString is a C++ string library designed to emulate the behavior and functionali
 project.
 
 
-# Usage
+# Install
 ```sh
 git clone https://github.com/EPTansuo/PString
 cd PString && mkdir build && cd build
