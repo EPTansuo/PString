@@ -10,12 +10,12 @@ project.
 ```sh
 git clone https://github.com/EPTansuo/PString
 cd PString && mkdir build && cd build
-cmake .. 
-# or:  cmake .. -DCMAKE_INSTALL_PREFIX="coustom/location/to/install/"
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make && make install 
 ```
 
 # Example
+`demo.cpp`:
 ```cpp
 #include <iostream>
 #include <pstring.h>
@@ -35,4 +35,8 @@ int main(){
     return 0;
 }
 ```
-
+Compile and run:
+```
+g++ demo.cpp -lpstring -o demo
+./demo
+```
