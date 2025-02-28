@@ -83,7 +83,7 @@ public:
     PString ljust(size_t width, char fillchar=' ') const;
     PString lower() const;
     PString lstrip(const PString& __strp_str = "\r\n\t ") const;
-    static std::unordered_map<char,char> maketrans(std::unordered_map<char,char> & x);
+    static std::unordered_map<char,char> maketrans(const std::unordered_map<char,char> & x);
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y);
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y, const PString &z);
     std::vector<PString> partition(const PString& sep) const;

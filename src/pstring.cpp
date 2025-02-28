@@ -398,7 +398,7 @@ PString PString::rjust(size_t width, char fillchar) const
     return PString(std::string(padSize, fillchar) + str_);
 }
 
-std::unordered_map<char,char> PString::maketrans(std::unordered_map<char,char> &x)
+std::unordered_map<char,char> PString::maketrans(const std::unordered_map<char,char> &x)
 {
     return x; // TODO
 }
