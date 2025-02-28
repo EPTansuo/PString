@@ -24,11 +24,11 @@ int main(){
     PString str = "  Hello, World!  ";
 
     // Python-style split
-    auto str_splited = str.split(",");
-    std::cout << str_splited[0].upper() << std::endl;
+    auto str_split = str.split(",");
+    std::cout << str_split[0].upper() << std::endl;
     
     // Python-style join
-    auto str_joined = PString(":").join(str_splited);
+    auto str_joined = PString(":").join(str_split);
     std::cout << str_joined << std::endl;
 
     // Python-style slice
