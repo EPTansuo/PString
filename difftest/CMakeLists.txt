@@ -23,6 +23,6 @@ set_target_properties(pstring_mod PROPERTIES
     CXX_VISIBILITY_PRESET hidden
 )
 
-install(TARGETS pstring_mod
-    DESTINATION bin
-)
+#install(TARGETS pstring_mod
+#    DESTINATION bin
+#)
