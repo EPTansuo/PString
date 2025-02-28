@@ -168,7 +168,7 @@ PString PString::substr(size_t start, size_t end) const {
 
 PString PString::slice(int start, int stop, int step) const {
     const int size = str_.size();
-    if (stop == std::string::npos) stop = size;
+    if (stop > size) stop = size;
     start = start < 0 ? size + start : start;
     stop = stop < 0 ? size + stop : stop;
     if (step == 0)
