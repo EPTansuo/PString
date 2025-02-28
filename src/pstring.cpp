@@ -138,7 +138,7 @@ std::vector<PString> PString::split(const PString &sep, size_t maxsplit) const {
     return result;
 }
 
-PString PString::captilize() const {
+PString PString::capitalize() const {
     if (str_.empty())
     {
         return PString();

@@ -38,7 +38,7 @@ public:
     // Python-style slice
     PString slice(int start = 0, int stop=-1, int step = 1) const;
 
-    PString captilize() const;
+    PString capitalize() const;
     PString casefold() const;
     PString center(size_t width, char fillchar=' ') const;
     size_t count(const PString& sub, size_t start=0, size_t end=std::string::npos) const;

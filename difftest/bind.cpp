@@ -47,7 +47,7 @@ PYBIND11_MODULE(pstring, m) {
         })
 
         #define BIND_SIMPLE(func) .def(#func, &PString::func)
-        BIND_SIMPLE(captilize)
+        BIND_SIMPLE(capitalize)
         BIND_SIMPLE(casefold)
         BIND_SIMPLE(lower)
         BIND_SIMPLE(upper)

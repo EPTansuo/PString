@@ -93,11 +93,11 @@ int main(){
     cout << str_strip_2.toString() + ".strip(\"abc\")  = " << str_strip_2.strip("abc").toString() << endl;
 
     PString str_cap1 = "aBC";
-    cout << str_cap1.toString() + ".captilize() = " << str_cap1.captilize().toString() << endl;
+    cout << str_cap1.toString() + ".capitalize() = " << str_cap1.capitalize().toString() << endl;
     PString str_cap2 = "你好";
-    cout << str_cap2.toString() + ".captilize() = " << str_cap2.captilize().toString() << endl;
+    cout << str_cap2.toString() + ".capitalize() = " << str_cap2.capitalize().toString() << endl;
     PString str_cap3 = " aBC dfdfd";
-    cout << str_cap3.toString() + ".captilize() = " << str_cap3.captilize().toString() << endl;
+    cout << str_cap3.toString() + ".capitalize() = " << str_cap3.capitalize().toString() << endl;
 
     PString str_center = "abc";
     cout << str_center.toString() + ".center(10) = " << str_center.center(10).toString() << endl;
@@ -263,7 +263,7 @@ int main(){
     cout << str_slice.toString() + "[-1:-5:-1] = " << str_slice(-1,-5,-1).toString() << endl;
 
 
-		PString str_sstream_in;  
+	PString str_sstream_in;  
     std::stringstream ss("Hello,World!");
     ss >> str_sstream_in;
     cout << "str_sstream_in = " << str_sstream_in << endl;
