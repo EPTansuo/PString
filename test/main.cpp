@@ -18,23 +18,37 @@ void const_iter(const T &collect){
     }
 }
 
+void demo() {
+    PString str = "  Hello, World!  ";
+
+    // Python-style split
+    auto str_splited = str.split(",");
+    std::cout << str_splited[0].upper() << std::endl;
+    
+    // Python-style join
+    auto str_joined = PString(":").join(str_splited);
+    std::cout << str_joined << std::endl;
+
+    // Python-style slice
+    auto str_sliced = str.slice(6, 1, -1);
+    std::cout << str_sliced << std::endl;
+
+    // Python-style strip
+    auto str_stripped = str.strip();
+    std::cout << str_stripped << std::endl;
+
+    // ...
+}
+
 
 int main(){
-    PString str = "Hello World!";
-    auto str_splited = str.split(" ");
-    for( auto item: str_splited){
-        cout << item << std::endl;
-    }
-    if(str.startswith("Hello")){
-        cout << "$str starts with \"Hello\"" << std::endl;
-    }
-    if(str.endswith('!')){
-        cout << "$str ends with \'!\'" << std::endl;
-    }
 
 
-    PString str1("Hello, World!");
-    cout << str1 << endl;
+    demo();
+
+
+    PString str = "Hello, World!";
+    cout << str << endl;
 
     PString str2("123");
     cout << std::stoi(str2) << endl;
@@ -224,6 +238,29 @@ int main(){
 #endif
     const_iter(PString("123abc"));
 
+    PString str_at = "abc";
+    str_at[0] = '1';
+    cout << str_at.toString() << "[0] = " << str_at[0] << endl;
+    cout << str_at.toString() << "[1] = " << str_at[1] << endl;
+    cout << str_at.toString() << "[2] = " << str_at[2] << endl;
+
+    PString str_slice = "123456789";
+    cout << str_slice.toString() + "[1:5] = " << str_slice.slice(1,5).toString() << endl;
+    cout << str_slice.toString() + "[1:5] = " << str_slice(1,5).toString() << endl;
+    cout << str_slice.toString() + "[1:5:2] = " << str_slice.slice(1,5,2).toString() << endl;
+    cout << str_slice.toString() + "[1:5:2] = " << str_slice(1,5,2).toString() << endl;
+    cout << str_slice.toString() + "[:5] = " << str_slice.slice(0,5).toString() << endl;
+    cout << str_slice.toString() + "[:5] = " << str_slice(0,5).toString() << endl;
+    cout << str_slice.toString() + "[1:] = " << str_slice.slice(1).toString() << endl;
+    cout << str_slice.toString() + "[1:] = " << str_slice(1).toString() << endl;
+    cout << str_slice.toString() + "[:] = " << str_slice.slice().toString() << endl;
+    cout << str_slice.toString() + "[:] = " << str_slice().toString() << endl;
+    cout << str_slice.toString() + "[-1:] = " << str_slice.slice(-1).toString() << endl;
+    cout << str_slice.toString() + "[-1:] = " << str_slice(-1).toString() << endl;
+    cout << str_slice.toString() + "[-1:-5] = " << str_slice.slice(-1,-5).toString() << endl;
+    cout << str_slice.toString() + "[-1:-5] = " << str_slice(-1,-5).toString() << endl;
+    cout << str_slice.toString() + "[-1:-5:-1] = " << str_slice.slice(-1,-5,-1).toString() << endl;
+    cout << str_slice.toString() + "[-1:-5:-1] = " << str_slice(-1,-5,-1).toString() << endl;
 
     return 0;
 }

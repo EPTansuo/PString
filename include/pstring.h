@@ -32,10 +32,11 @@ public:
     size_t size() const;
     bool empty() const;
 
-    
+    // C++-style substr() function: like std::string::substr()
     PString substr(size_t start, size_t end=std::string::npos) const;
     
-    
+    // Python-style slice
+    PString slice(int start = 0, int stop=-1, int step = 1) const;
 
     PString captilize() const;
     PString casefold() const;
@@ -126,6 +127,9 @@ public:
     
     char& operator[](size_t index);
     const char& operator[](size_t index) const;
+
+    // Python-style slice
+    PString operator()(int start = 0, int stop = -1, int step = 1) const;
     
     PString operator+(const PString& other) const;
     PString operator+(char32_t other) const;

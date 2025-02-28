@@ -162,12 +162,34 @@ PString PString::center(size_t width, char fillchar) const {
 }
 
 PString PString::substr(size_t start, size_t end) const {
-    if (end == std::string::npos)
-    {
-        return PString(str_.substr(start));
-    }
-    return PString(str_.substr(start, end - start));
+    return PString(str_.substr(start, end));
 }
+
+
+PString PString::slice(int start, int stop, int step) const {
+    const int size = str_.size();
+    if (stop == std::string::npos) stop = size;
+    start = start < 0 ? size + start : start;
+    stop = stop < 0 ? size + stop : stop;
+    if (step == 0)
+        throw std::invalid_argument("PString: slice step cannot be zero");
+
+    if (size == 0 || (step > 0 ? start > stop : start < stop)) return PString(); 
+    if (step == 1) return substr(start, stop - start);
+    
+    if (start < 0 || start > size || stop < 0 || stop > size)
+    {
+        throw std::out_of_range("PString: index out of range");
+    }
+
+    std::string result;
+    result.reserve((stop - start) / step + 1);
+    for(int i = start; (step > 0 ? i < stop : i > stop); i += step){
+        result.push_back(str_[i]);
+    }
+    return PString(result);
+}
+
 
 size_t PString::count(const PString &sub, size_t start, size_t end) const {
     size_t count = 0;
@@ -783,6 +805,10 @@ const char& PString::operator[](size_t index) const {
         throw std::out_of_range("PString: index out of range");
     }
     return str_[index];
+}
+
+PString PString::operator()(int start, int stop, int step) const {
+    return slice(start, stop, step);
 }
 
 PString PString::operator+(const PString &other) const {

@@ -21,18 +21,25 @@ make && sudo make install
 #include <pstring.h>
 
 int main(){
-    PString str = "Hello World!";
-    auto str_splited = str.split(" ");
-    for(auto item: str_splited){
-        cout << item << std::endl;
-    }
-    if(str.startswith("Hello")){
-        cout << "$str starts with \"Hello\"" << std::endl;
-    }
-    if(str.endswith('!')){
-        cout << "$str ends with \'!\'" << std::endl;
-    }
-    return 0;
+    PString str = "  Hello, World!  ";
+
+    // Python-style split
+    auto str_splited = str.split(",");
+    std::cout << str_splited[0].upper() << std::endl;
+    
+    // Python-style join
+    auto str_joined = PString(":").join(str_splited);
+    std::cout << str_joined << std::endl;
+
+    // Python-style slice
+    auto str_sliced = str.slice(6, 1, -1);
+    std::cout << str_sliced << std::endl;
+
+    // Python-style strip
+    auto str_stripped = str.strip();
+    std::cout << str_stripped << std::endl;
+
+    // ...
 }
 ```
 Compile and run:
