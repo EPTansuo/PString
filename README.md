@@ -11,7 +11,7 @@ project.
 git clone https://github.com/EPTansuo/PString
 cd PString && mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-make && make install 
+make && sudo make install 
 ```
 
 # Example
