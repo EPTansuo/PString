@@ -62,6 +62,8 @@ g++ demo.cpp -lpstring -o demo
 - [ ] `"\t\n\r\x0b\x0c".rsplit`
 - [ ] `"\t\n\r\x0b\x0c".splitlines`
 
+## Limitations
 
+- No support for Unicode character operations.
 
 
