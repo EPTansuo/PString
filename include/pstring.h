@@ -3,11 +3,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
-#include <codecvt>
-#include <locale>
-#include <stdexcept>
 #include <iostream>
-#include <iomanip>
 #include <unordered_map>
 #if __cplusplus >= 202002L
 #include <format>
@@ -221,6 +217,8 @@ struct std::formatter<PString> {
 
 
 #ifdef PSTRING_TEST
+
+#include <iomanip>
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<PString>& vec) {
     os << "[";
