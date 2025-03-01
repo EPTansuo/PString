@@ -15,7 +15,9 @@ PYBIND11_MODULE(pstring, m) {
         .def(py::init<const std::string&>())
         .def(py::init<const PString&>())
 
-        .def("__repr__", [](const PString& s) { return '\'' + s.str() + '\''; })
+        .def("__repr__", [](const PString& s) {
+            return (std::string)s.repr();
+        })
         .def("__str__", &PString::str)
         .def("__len__", &PString::size)
         .def("__bool__", &PString::operator bool)

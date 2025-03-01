@@ -31,6 +31,8 @@ public:
     size_t length() const;
     size_t size() const;
     bool empty() const;
+    PString repr() const;
+
 
     // C++-style substr() function: like std::string::substr()
     PString substr(size_t start, size_t end=std::string::npos) const;

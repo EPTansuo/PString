@@ -44,6 +44,39 @@ bool PString::empty() const {
     return str_.empty();
 }
 
+PString PString::repr() const {
+    PString result = "\'";
+    for (char c : *this)
+    {
+        if (c == '\'')
+        {
+            result += "\\'";
+        }
+        else if (c == '\\')
+        {
+            result += "\\\\";
+        }
+        else if (c == '\n')
+        {
+            result += "\\n";
+        }
+        else if (c == '\r')
+        {
+            result += "\\r";
+        }
+        else if (c == '\t')
+        {
+            result += "\\t";
+        }
+        else
+        {
+            result += c;
+        }
+    }
+    result += "\'";
+    return result;
+}
+
 PString PString::lstrip(const PString &__strp_str) const {
     size_t pos = str_.find_first_not_of(__strp_str.str_);
     if(pos == std::string::npos){
