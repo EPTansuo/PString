@@ -47,3 +47,21 @@ Compile and run:
 g++ demo.cpp -lpstring -o demo
 ./demo
 ```
+
+## Bug List 
+
+- [ ] `" \r\n\thello world\t\r\n ".rstrip`
+- [ ] `" \r\n\thello world\t\r\n ".rsplit`
+- [ ] `" \r\n\thello world\t\r\n ".expandtabs`
+- [ ] `"'\"\\".strip`
+- [ ] `"'\"\\".lstrip`
+- [ ] `"\t\n\r\x0b\x0c".strip`
+- [ ] `"\t\n\r\x0b\x0c".lstrip`
+- [ ] `"\t\n\r\x0b\x0c".rstrip`
+- [ ] `"\t\n\r\x0b\x0c".split`
+- [ ] `"\t\n\r\x0b\x0c".rsplit`
+- [ ] `"\t\n\r\x0b\x0c".splitlines`
+
+
+
+
