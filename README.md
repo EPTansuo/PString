@@ -49,7 +49,6 @@ g++ demo.cpp -lpstring -o demo
 ```
 
 ## Bug List 
-
 - [ ] `" \r\n\thello world\t\r\n ".rstrip`
 - [ ] `" \r\n\thello world\t\r\n ".rsplit`
 - [ ] `" \r\n\thello world\t\r\n ".expandtabs`
@@ -61,6 +60,10 @@ g++ demo.cpp -lpstring -o demo
 - [ ] `"\t\n\r\x0b\x0c".split`
 - [ ] `"\t\n\r\x0b\x0c".rsplit`
 - [ ] `"\t\n\r\x0b\x0c".splitlines`
+
+Description:
+- [ ] means the bug haven't fixed yet.
+- [x] means the bug have been fixed.
 
 ## Limitations
 
