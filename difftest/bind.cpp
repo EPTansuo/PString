@@ -8,7 +8,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(pstring, m) {
 
 
-    py::class_<PString>(m, "str")
+    py::class_<PString>(m, "pstr")
         .def(py::init<>())
         .def(py::init<const char*>())
         .def(py::init<char>())
@@ -67,12 +67,19 @@ PYBIND11_MODULE(pstring, m) {
         BIND_SIMPLE(isupper)
         #undef BIND_SIMPLE
 
+        .def("startswith", &PString::startswith)
+        .def("endswith", &PString::endswith)
+        .def("expandtabs", &PString::expandtabs, py::arg("tabsize")=8)
+
         .def("count", &PString::count,
             py::arg("sub"), py::arg("start")=0, py::arg("end")=std::string::npos)
         
         .def("find", &PString::find,
             py::arg("sub"), py::arg("start")=0, py::arg("end")=std::string::npos)
+        .def("rfind", &PString::rfind,
+            py::arg("sub"), py::arg("start")=0, py::arg("end")=std::string::npos)
         
+
         .def("index", &PString::index,
             py::arg("sub"), py::arg("start")=0, py::arg("end")=std::string::npos)
 
@@ -80,10 +87,39 @@ PYBIND11_MODULE(pstring, m) {
             auto bytes = s.encode(encoding, errors);
             return py::bytes(reinterpret_cast<const char*>(bytes.data()), bytes.size());
         }, py::arg("encoding")="utf-8", py::arg("errors")="strict")
+			
+        .def("strip", [](const PString& s, const PString& __strp_str){
+            return s.strip(__strp_str);
+        }, py::arg("__strp_str")="'\r\n\t ")
+        .def("rstrip", [](const PString& s, const PString& __strp_str){
+            return s.rstrip(__strp_str);
+        }, py::arg("__strp_str")="'")
+        .def("lstrip", [](const PString& s, const PString& __strp_str){
+            return s.lstrip(__strp_str);
+        }, py::arg("__strp_str")="'\r\n\t ")
 
         .def("split", [](const PString& s, const PString& sep, int maxsplit) {
             return s.split(sep, maxsplit);
         }, py::arg("sep")="", py::arg("maxsplit")=-1)
+        .def("rsplit", [](const PString& s, const PString& sep, int maxsplit) {
+            return s.rsplit(sep, maxsplit);
+        }, py::arg("sep")="", py::arg("maxsplit")=-1)
+        .def("splitlines", &PString::splitlines, py::arg("keepends")=false)
+        .def("partition", &PString::partition)
+
+        .def("center", [](const PString& s, size_t width, char fillchar) {
+                return s.center(width, fillchar);
+        }, py::arg("width"), py::arg("fillchar")=' ')
+        .def("ljust", [](const PString& s, size_t width, char fillchar) {
+                return s.ljust(width, fillchar);
+        }, py::arg("width"), py::arg("fillchar")=' ')
+        .def("rjust", [](const PString& s, size_t width, char fillchar) {
+                return s.rjust(width, fillchar);
+        }, py::arg("width"), py::arg("fillchar")=' ')
+
+
+        .def("zfill", &PString::zfill)
+
 
         .def("join", [](const PString& s, const py::iterable& iter) {
             std::vector<PString> items;
@@ -111,16 +147,20 @@ PYBIND11_MODULE(pstring, m) {
             }
             throw py::value_error("Invalid number of arguments");
         })
+        .def("translate", &PString::translate)
+        .def("replace", &PString::replace, py::arg("old"), py::arg("new_"), py::arg("count")=-1)
+        .def("removesuffix", &PString::removesuffix)
+        .def("removeprefix", &PString::removeprefix)
 
         .def(py::self + py::self)
         .def(py::self += py::self)
         .def("__mul__", [](const PString& s, size_t n) { return s * n; })
         .def("__rmul__", [](const PString& s, size_t n) { return s * n; });
 
-    m.def("__add__", [](const char* lhs, const PString& rhs) { return PString(lhs) + rhs; });
-    m.def("__add__", [](const std::string& lhs, const PString& rhs) { return PString(lhs) + rhs; });
+        m.def("__add__", [](const char* lhs, const PString& rhs) { return PString(lhs) + rhs; });
+        m.def("__add__", [](const std::string& lhs, const PString& rhs) { return PString(lhs) + rhs; });
 
 		py::implicitly_convertible<py::str, PString>();
-    py::implicitly_convertible<std::string, PString>();
+        py::implicitly_convertible<std::string, PString>();
 
 }

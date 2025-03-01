@@ -87,7 +87,7 @@ public:
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y);
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y, const PString &z);
     std::vector<PString> partition(const PString& sep) const;
-    PString remoteprefix(const PString& prefix) const;
+    PString removeprefix(const PString& prefix) const;
     PString removesuffix(const PString& suffix) const;
     PString replace(const PString& old, const PString& new_, size_t count=-1) const;
     int rfind(const PString& sub, size_t start=0, size_t end=std::string::npos) const;

@@ -1,8 +1,8 @@
 import sys
 import unicodedata
-sys.path.extend(["../lib", "./lib"])  # 更安全的路径处理
+sys.path.extend(["../lib", "./lib"])
 
-from pstring import str as pstr
+from pstring import pstr
 
 def difftest(ref, impl, method_name, verbose=True):
     try:
@@ -20,6 +20,7 @@ def difftest(ref, impl, method_name, verbose=True):
 def run_tests():
     test_cases = [
         (" \r\n\thello world\t\r\n ", "Basic"),
+        ("hello,,,worLD", "Basic2"),
         ("", "Empty String"),
         ("12345", "Number"),
         ("a,b;c.d|e", "Separator"),
@@ -39,28 +40,37 @@ def run_tests():
         difftest(py_str.swapcase(), ps_str.swapcase(), "swapcase")
         difftest(py_str.casefold(), ps_str.casefold(), "casefold")  # Unicode casefolding
         
-        # difftest(py_str.strip(), ps_str.strip(), "strip")
-        # difftest(py_str.lstrip(), ps_str.lstrip(), "lstrip")
-        # difftest(py_str.rstrip(), ps_str.rstrip(), "rstrip")
-        
+        difftest(py_str.strip(), ps_str.strip(), "strip")
+        difftest(py_str.lstrip(), ps_str.lstrip(), "lstrip")
+        difftest(py_str.rstrip(), ps_str.rstrip(), "rstrip")
+        difftest(py_str.removeprefix(" \r\n\t"), ps_str.removeprefix(" \r\n\t"), "removeprefix")
+        difftest(py_str.removesuffix("\t\r\n "), ps_str.removesuffix("\t\r\n "), "removesuffix")
+
+
         difftest(py_str.split(), ps_str.split(), "split")
         difftest(py_str.split(maxsplit=2), ps_str.split(maxsplit=2), "split(maxsplit=2)")
-        # difftest(py_str.rsplit(maxsplit=1), ps_str.rsplit(maxsplit=1), "rsplit(maxsplit=1)")
-        # difftest(py_str.splitlines(), ps_str.splitlines(), "splitlines")
+        difftest(py_str.rsplit(maxsplit=1), ps_str.rsplit(maxsplit=1), "rsplit(maxsplit=1)")
+        difftest(py_str.splitlines(), ps_str.splitlines(), "splitlines")
         
-        # difftest(py_str.center(20, '*'), ps_str.center(20, '*'), "center")
-        # difftest(py_str.ljust(15), ps_str.ljust(15), "ljust")
-        # difftest(py_str.rjust(15, '#'), ps_str.rjust(15, '#'), "rjust")
-        # difftest(py_str.zfill(10), ps_str.zfill(10), "zfill")
+        difftest(py_str.center(20, '*'), ps_str.center(20, '*'), "center")
+        difftest(py_str.ljust(15), ps_str.ljust(15), "ljust")
+        difftest(py_str.rjust(15, '#'), ps_str.rjust(15, '#'), "rjust")
+        difftest(py_str.zfill(10), ps_str.zfill(10), "zfill")
         
         difftest(py_str.find('e'), ps_str.find('e'), "find")
-        # difftest(py_str.rfind('l'), ps_str.rfind('l'), "rfind")
+        difftest(py_str.rfind('l'), ps_str.rfind('l'), "rfind")
         # difftest(py_str.index('o'), ps_str.index('o'), "index")
         difftest(py_str.count('l'), ps_str.count('l'), "count")
-        # difftest(py_str.replace('l', 'L', 2), ps_str.replace('l', 'L', 2), "replace")
+        difftest(py_str.replace('l', 'L', 2), ps_str.replace('l', 'L', 2), "replace")
         
         # difftest(py_str.startswith(('He', 'ha')), ps_str.startswith(('He', 'ha')), "startswith")
+        difftest(py_str.startswith('ha'), ps_str.startswith('ha'), "startswith")
+        difftest(py_str.startswith('He'), ps_str.startswith('He'), "startswith")
         # difftest(py_str.endswith(('ld', 'LD')), ps_str.endswith(('ld', 'LD')), "endswith")
+        difftest(py_str.endswith('LD'), ps_str.endswith('LD'), "endswith")
+        difftest(py_str.endswith('ld'), ps_str.endswith('ld'), "endswith")
+
+        difftest(py_str.expandtabs(2), ps_str.expandtabs(2), "expandtabs")
         
         if hasattr(ps_str, 'format'):
             fmt_str = pstr("{} + {} = {}")

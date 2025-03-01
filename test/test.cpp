@@ -159,8 +159,8 @@ int main(){
 
     PString str_removeprefix = "TestHook";
     PString str_removeprefix2 = "BaseTestCase";
-    cout << str_removeprefix.toString() + ".remoteprefix(\"Test\") = " << str_removeprefix.remoteprefix("Test").toString() << endl;
-    cout << str_removeprefix2.toString() + ".remoteprefix(\"Test\") = " << str_removeprefix2.remoteprefix("Test").toString() << endl;
+    cout << str_removeprefix.toString() + ".removeprefix(\"Test\") = " << str_removeprefix.removeprefix("Test").toString() << endl;
+    cout << str_removeprefix2.toString() + ".removeprefix(\"Test\") = " << str_removeprefix2.removeprefix("Test").toString() << endl;
 
     PString str_removesuffix = "MiscTests";
     PString str_removesuffix2 = "TmpDirMixin";

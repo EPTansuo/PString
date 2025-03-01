@@ -453,7 +453,7 @@ std::vector<PString> PString::partition(const PString &sep) const
     return result;
 }
 
-PString PString::remoteprefix(const PString &prefix) const
+PString PString::removeprefix(const PString &prefix) const
 {
     if (startswith(prefix))
     {
