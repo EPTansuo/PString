@@ -80,7 +80,7 @@ public:
 
     PString ljust(size_t width, char fillchar=' ') const;
     PString lower() const;
-    PString lstrip(const PString& __strp_str = "\r\n\t ") const;
+    PString lstrip(const PString& __strp_str = "\r\n\t \v\f") const;
     static std::unordered_map<char,char> maketrans(const std::unordered_map<char,char> & x);
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y);
     static std::unordered_map<char,char>  maketrans(const PString& x, const PString& y, const PString &z);
@@ -93,11 +93,11 @@ public:
     PString rjust(size_t width, char fillchar=' ') const;
     std::vector<PString> rpartition(const PString& sep) const;
     std::vector<PString> rsplit(const PString& sep = "", size_t maxsplit = -1) const;
-    PString rstrip(const PString& __strp_str = "\r\n\t ") const;
+    PString rstrip(const PString& __strp_str = "\r\n\t \v\f") const;
     std::vector<PString> split(const PString &sep = "", size_t maxsplit = -1) const;
     std::vector<PString> splitlines(bool keepends=false) const;
     bool startswith(const PString& other) const;
-    PString strip(const PString& __strp_str = "\r\n\t ") const;
+    PString strip(const PString& __strp_str = "\r\n\t \v\f") const;
     PString swapcase() const;
     PString title() const;
     PString translate (const std::unordered_map<char,char> & table) const; 
@@ -223,7 +223,7 @@ struct std::formatter<PString> {
 inline std::ostream& operator<<(std::ostream& os, const std::vector<PString>& vec) {
     os << "[";
     for (size_t i = 0; i < vec.size(); ++i) {
-        os << vec[i].toString();
+        os << vec[i].repr();
         if (i != vec.size() - 1) os << ", ";
     }
     os << "]";

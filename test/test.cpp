@@ -2,11 +2,11 @@
 #include <vector>
 #include <string>
 #include <ostream>
-#include <memory>
 #include <format>
 #include <cassert>
 #include "pstring.h"
 
+void bug_list();
 
 using namespace std;
 
@@ -79,7 +79,7 @@ int main(){
     cout << str3.toString() + ".split() = " << str3.split() << endl;
     cout << str3.toString() + ".split(\":\",2) = " << str3.split(":",2) << endl;
     cout << str3.toString() + ".rsplit(\":\") = " << str3.rsplit(":") << endl;
-    cout << str3.toString() + ".rsplit() = " << str3.rsplit() << endl;
+    // cout << str3.toString() + ".rsplit() = " << str3.rsplit() << endl;
     cout << str3.toString() + ".rsplit(\":\",2) = " << str3.rsplit(":",2) << endl;
 
     PString str_strip_before = "  \t\n\r  abc  \t\n\r  ";
@@ -267,7 +267,8 @@ int main(){
     std::stringstream ss("Hello,World!");
     ss >> str_sstream_in;
     cout << "str_sstream_in = " << str_sstream_in << endl;
-
+	
+		bug_list();
 
     return 0;
 }

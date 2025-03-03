@@ -92,13 +92,13 @@ PYBIND11_MODULE(pstring, m) {
 			
         .def("strip", [](const PString& s, const PString& __strp_str){
             return s.strip(__strp_str);
-        }, py::arg("__strp_str")="'\r\n\t ")
+        }, py::arg("__strp_str")="\r\n\t \v\f")
         .def("rstrip", [](const PString& s, const PString& __strp_str){
             return s.rstrip(__strp_str);
-        }, py::arg("__strp_str")="'")
+        }, py::arg("__strp_str")="\r\n\t \v\f")
         .def("lstrip", [](const PString& s, const PString& __strp_str){
             return s.lstrip(__strp_str);
-        }, py::arg("__strp_str")="'\r\n\t ")
+        }, py::arg("__strp_str")="\r\n\t \v\f")
 
         .def("split", [](const PString& s, const PString& sep, int maxsplit) {
             return s.split(sep, maxsplit);

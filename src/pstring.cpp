@@ -44,30 +44,27 @@ bool PString::empty() const {
 
 PString PString::repr() const {
     PString result = "\'";
-    for (char c : *this)
-    {
-        if (c == '\'')
-        {
-            result += "\\'";
+
+    std::unordered_map<char, PString> c_map = {
+        {'\n', "\\n"},
+        {'\r', "\\r"},
+        {'\t', "\\t"},
+        {'\'', "\\\'"},
+        {'\\', "\\\\"},
+        {'\v', "\\x0b"},
+        {'\f', "\\x0c"},
+        {'\x1c', "\\x1c"},
+        {'\x1d', "\\x1d"},
+        {'\x1e', "\\x1e"},
+        {'\x85', "\\x85"},
+    };
+
+    for (char c : *this){
+        auto it = c_map.find(c);
+        if (it != c_map.end()){
+            result += it->second;
         }
-        else if (c == '\\')
-        {
-            result += "\\\\";
-        }
-        else if (c == '\n')
-        {
-            result += "\\n";
-        }
-        else if (c == '\r')
-        {
-            result += "\\r";
-        }
-        else if (c == '\t')
-        {
-            result += "\\t";
-        }
-        else
-        {
+        else{
             result += c;
         }
     }
@@ -78,7 +75,7 @@ PString PString::repr() const {
 PString PString::lstrip(const PString &__strp_str) const {
     size_t pos = str_.find_first_not_of(__strp_str.str_);
     if(pos == std::string::npos){
-        return PString(str_);
+        return PString();
     }
     return PString(str_.substr(pos));
 }
@@ -86,7 +83,7 @@ PString PString::lstrip(const PString &__strp_str) const {
 PString PString::rstrip(const PString &__strp_str) const {
     size_t pos = str_.find_last_not_of(__strp_str.str_);
     if(pos == std::string::npos){
-        return PString(str_);
+        return PString ();
     }
     return PString(str_.substr(0, pos + 1));
 }
@@ -137,13 +134,15 @@ std::vector<PString> PString::split(const PString &sep, size_t maxsplit) const {
     if (sep.length() == 0) {
         while (cnt++ < maxsplit && pos < str_.size()) {
             while (pos < str_.size() && (str_[pos] == ' ' || str_[pos] == '\t' || 
-                                        str_[pos] == '\n' || str_[pos] == '\r')) {
+                                        str_[pos] == '\n' || str_[pos] == '\r') || 
+                                        str_[pos] == '\v' || str_[pos] == '\f') {
                 pos++;
             }
             prevPos = pos;
 
             while (pos < str_.size() && !(str_[pos] == ' ' || str_[pos] == '\t' || 
-                                        str_[pos] == '\n' || str_[pos] == '\r')) {
+                                        str_[pos] == '\n' || str_[pos] == '\r') ||
+                                        str_[pos] == '\v' || str_[pos] == '\f') {
                 pos++;
             }
 
@@ -566,21 +565,38 @@ std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const
     size_t pos = 0;
     size_t prevPos = str_.size();
     size_t cnt = 0;
+
     std::vector<PString> result;
     std::vector<PString> result_rev;
-    if (sep.length() == 0)
-    {
-        result.push_back(*this);
-        return result;
+    if(sep.empty()){
+        std::string sep_ = " \r\t\n\v\f";
+        while(cnt < maxsplit && ((pos = str_.find_last_of(sep_, prevPos - 1)) != std::string::npos)){
+            if(pos == 0) break;
+            PString to_append = PString(str_.substr(pos + 1, prevPos - pos - 1));
+            prevPos = pos;
+            if(!to_append.rstrip().empty()){
+                result_rev.emplace_back(to_append.rstrip());
+                cnt++;
+            }
+        }
     }
-    while (cnt++ < maxsplit && (pos = str_.rfind(sep.str_, prevPos - 1)) != std::string::npos)
-    {
-        result_rev.emplace_back(PString(str_.substr(pos + sep.length(), prevPos - pos - sep.length())));
-        prevPos = pos;
+    else{
+        while(cnt++ < maxsplit && (pos = str_.rfind(sep.str_, prevPos - 1)) != std::string::npos){
+            result_rev.emplace_back(PString(str_.substr(pos + sep.length(), prevPos - pos - sep.length())));
+            prevPos = pos;
+        }
     }
     if (prevPos >= 0)
     {
-        result_rev.emplace_back(PString(str_.substr(0, prevPos)));
+        if(sep.empty()){
+            auto to_append = PString(str_.substr(0, prevPos)).rstrip();
+            if(!to_append.empty()){
+                result_rev.emplace_back(to_append);
+            }
+        }
+        else{
+            result_rev.emplace_back(PString(str_.substr(0, prevPos)));
+        }
     }
     for (auto it = result_rev.rbegin(); it != result_rev.rend(); it++)
     {
