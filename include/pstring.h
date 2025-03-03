@@ -19,10 +19,6 @@ public:
     virtual ~PString();
 
     std::string str() const;
-
-#ifdef PSTRING_TEST
-    inline PString toString() const { return "\"" + this->str_ + "\""; }
-#endif
     
     size_t length() const;
     size_t size() const;
