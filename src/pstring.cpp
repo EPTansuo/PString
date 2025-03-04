@@ -731,26 +731,24 @@ PString PString::zfill(size_t width) const {
 PString PString::expandtabs(size_t tabsize) const {
     PString result;
     size_t cnt = 0;
-    for (auto c : str_)
-    {
-        if (c == '\t'){
-            if(cnt >= tabsize){
-                result += PString(" ")*tabsize;
-            }else{
-                result += PString(" ")*(tabsize - cnt);
-            }
-            cnt = 0;
-        }
-        else
-        {
+    if(tabsize == 0) {
+        return this->replace("\t", "");
+    }
+    for (auto c : str_) {
+        if (c == '\t') {
+            size_t space_count = tabsize - (cnt % tabsize);
+            result += PString(" ") * space_count;
+            cnt += space_count;
+        } else {
             result += c;
-            if(c == '\n' || c == '\r'){
+            if (c == '\n' || c == '\r') {
                 cnt = 0;
-            }else{
+            } else {
                 cnt++;
             }
         }
     }
+    return result;
     return result;
 }
 

@@ -121,10 +121,20 @@ void bug_splitlines(){
 	}
 }
 
+void bug_expandtabs(){
+	{
+		PString input = " \r\n\thello world\t\r\n ";
+		PString expected = " \r\n  hello world \r\n ";
+		auto result = input.expandtabs(2);
+		print_result(input, expected, result, "expandtabs(2)");
+	}
+}
+
 void bug_list(){
 	bug_rstrip();
 	bug_rsplit();
 	bug_strip();
 	bug_split();
 	bug_splitlines();
+	bug_expandtabs();
 }

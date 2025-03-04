@@ -74,6 +74,8 @@ def run_tests():
         difftest(py_str.endswith(' '), ps_str.endswith(' '), "endswith")
 
         difftest(py_str.expandtabs(2), ps_str.expandtabs(2), "expandtabs")
+        difftest(py_str.expandtabs(), ps_str.expandtabs(), "expandtabs")
+        difftest(py_str.expandtabs(0), ps_str.expandtabs(0), "expandtabs")
         
         if hasattr(ps_str, 'format'):
             fmt_str = pstr("{} + {} = {}")
