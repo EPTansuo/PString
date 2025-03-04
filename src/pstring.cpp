@@ -45,18 +45,12 @@ bool PString::empty() const {
 PString PString::repr() const {
     PString result = "\'";
 
-    std::unordered_map<char, PString> c_map = {
+    const std::unordered_map<char, PString> c_map = {
+        {'\t', "\\t"},
         {'\n', "\\n"},
         {'\r', "\\r"},
-        {'\t', "\\t"},
-        {'\'', "\\\'"},
         {'\\', "\\\\"},
-        {'\v', "\\x0b"},
-        {'\f', "\\x0c"},
-        {'\x1c', "\\x1c"},
-        {'\x1d', "\\x1d"},
-        {'\x1e', "\\x1e"},
-        {'\x85', "\\x85"},
+        {'\'', "\\\'"},
     };
 
     for (char c : *this){
@@ -64,7 +58,21 @@ PString PString::repr() const {
         if (it != c_map.end()){
             result += it->second;
         }
-        else{
+        else if( (static_cast<unsigned char>(c) >= 0x00 && static_cast<unsigned char>(c) <= 0x08) ||
+                 (static_cast<unsigned char>(c) >= 0x0b && static_cast<unsigned char>(c) <= 0x0c) ||
+                 (static_cast<unsigned char>(c) >= 0x0e && static_cast<unsigned char>(c) <= 0x1f) ||
+
+                 // In Python, there should be c <= 0xa0, however, we do not suppose to support it
+                //  (static_cast<unsigned char>(c) >= 0x7f && static_cast<unsigned char>(c) <= 0xa0)
+                 (static_cast<unsigned char>(c) >= 0x7f)
+        ){
+            result += "\\x";
+            auto bit1 = static_cast<unsigned char>(c) / 16;
+            auto bit2 = static_cast<unsigned char>(c) % 16;
+            result += static_cast<char> (bit1 >= 10 ? (bit1-10 + 'a') : bit1 + '0');
+            result += static_cast<char> (bit2 >= 10 ? (bit2-10 + 'a') : bit2 + '0');
+        }
+        else {
             result += c;
         }
     }
