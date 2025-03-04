@@ -61,7 +61,14 @@ def run_tests():
         
         difftest(py_str.find('e'), ps_str.find('e'), "find")
         difftest(py_str.rfind('l'), ps_str.rfind('l'), "rfind")
-        # difftest(py_str.index('o'), ps_str.index('o'), "index")
+
+        try:
+            pstr_index = ps_str.index('e')
+            py_index = py_str.index('e')
+            difftest(py_index, pstr_index, "index")
+        except ValueError:
+            pass
+
         difftest(py_str.count('l'), ps_str.count('l'), "count")
         difftest(py_str.replace('l', 'L', 2), ps_str.replace('l', 'L', 2), "replace")
         

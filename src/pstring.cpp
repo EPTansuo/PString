@@ -259,8 +259,9 @@ int PString::find(const PString &sub, size_t start, size_t end) const {
 
 int PString::index(const PString &sub, size_t start, size_t end) const {
     size_t pos = find(sub, start, end);
-    if (pos == -1)
-        throw std::runtime_error("substring not found");
+    if (pos == -1){
+        throw std::invalid_argument("substring not found");
+    }   
     return pos;
 }
 
