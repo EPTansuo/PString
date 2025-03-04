@@ -37,7 +37,8 @@ public:
     PString center(size_t width, char fillchar=' ') const;
     size_t count(const PString& sub, size_t start=0, size_t end=std::string::npos) const;
     std::vector<uint8_t> encode(const PString& encoding="utf-8", const PString& errors="strict") const;
-    bool endswith(const PString& other) const;
+    bool endswith(const PString& suffix) const;
+    bool endswith(const std::vector<PString>& suffixes) const;
     PString expandtabs(size_t tabsize=8) const;
     int find(const PString& sub, size_t start=0, size_t end=std::string::npos) const;
     
@@ -92,7 +93,8 @@ public:
     PString rstrip(const PString& __strp_str = "\r\n\t \v\f") const;
     std::vector<PString> split(const PString &sep = "", size_t maxsplit = -1) const;
     std::vector<PString> splitlines(bool keepends=false) const;
-    bool startswith(const PString& other) const;
+    bool startswith(const PString& prefix) const;
+    bool startswith(const std::vector<PString>& prefixs) const;
     PString strip(const PString& __strp_str = "\r\n\t \v\f") const;
     PString swapcase() const;
     PString title() const;

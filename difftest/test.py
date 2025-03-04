@@ -65,12 +65,13 @@ def run_tests():
         difftest(py_str.count('l'), ps_str.count('l'), "count")
         difftest(py_str.replace('l', 'L', 2), ps_str.replace('l', 'L', 2), "replace")
         
-        # difftest(py_str.startswith(('He', 'ha')), ps_str.startswith(('He', 'ha')), "startswith")
+        difftest(py_str.startswith(('He', 'ha')), ps_str.startswith(('He', 'ha')), "startswith")
         difftest(py_str.startswith('ha'), ps_str.startswith('ha'), "startswith")
         difftest(py_str.startswith('He'), ps_str.startswith('He'), "startswith")
-        # difftest(py_str.endswith(('ld', 'LD')), ps_str.endswith(('ld', 'LD')), "endswith")
+        difftest(py_str.endswith(('ld', 'LD')), ps_str.endswith(('ld', 'LD')), "endswith")
         difftest(py_str.endswith('LD'), ps_str.endswith('LD'), "endswith")
         difftest(py_str.endswith('ld'), ps_str.endswith('ld'), "endswith")
+        difftest(py_str.endswith(' '), ps_str.endswith(' '), "endswith")
 
         difftest(py_str.expandtabs(2), ps_str.expandtabs(2), "expandtabs")
         

@@ -92,19 +92,35 @@ PString PString::strip(const PString &__strp_str) const {
     return lstrip(__strp_str).rstrip(__strp_str);
 }
 
-bool PString::startswith(const PString &other) const {
-    return str_.rfind(other.str_, 0) == 0;
+bool PString::startswith(const PString &prefix) const {
+    return str_.rfind(prefix.str_, 0) == 0;
 }
 
-bool PString::endswith(const PString &other) const {
+bool PString::startswith(const std::vector<PString>& prefixs) const {
+    for (auto &s : prefixs){
+        if (startswith(s))
+            return true;
+    }
+    return false;
+}
 
-    if (other.str_.size() > str_.size())
+bool PString::endswith(const PString &suffix) const {
+
+    if (suffix.str_.size() > str_.size())
     {
         return false;
     }
-    return str_.compare(str_.size() - other.str_.size(),
-                            other.str_.size(),
-                            other.str_) == 0;
+    return str_.compare(str_.size() - suffix.str_.size(),
+                            suffix.str_.size(),
+                            suffix.str_) == 0;
+}
+
+bool PString::endswith(const std::vector<PString> &suffixes) const {
+    for (auto &s : suffixes){
+        if (endswith(s))
+            return true;
+    }
+    return false;
 }
 
 PString PString::lower() const {

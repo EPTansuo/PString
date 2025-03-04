@@ -2,6 +2,7 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 #include <pstring.h>
+#include <vector>
 
 namespace py = pybind11;
 
@@ -69,8 +70,40 @@ PYBIND11_MODULE(pstring, m) {
         BIND_SIMPLE(isupper)
         #undef BIND_SIMPLE
 
-        .def("startswith", &PString::startswith)
-        .def("endswith", &PString::endswith)
+        // .def("startswith", &PString::startswith)
+        .def("startswith",
+            [](const PString& self, const std::string& prefix) {
+                return self.startswith(PString(prefix));
+            }, 
+            py::arg("prefix")
+        )
+        .def("startswith",
+            [](const PString& self, const std::vector<std::string>& prefixes) {
+                std::vector<PString> pstring_prefixes;
+                for (const auto& p : prefixes) {
+                    pstring_prefixes.emplace_back(p);
+                }
+                return self.startswith(pstring_prefixes);
+            }, 
+            py::arg("prefixes")
+        )
+        // .def("endswith", &PString::endswith)
+        .def("endswith", 
+            [](const PString& self, const std::string& prefix) {
+                return self.endswith(PString(prefix));
+            },
+            py::arg("suffixes")
+        )
+        .def("endswith", 
+            [](const PString& self, const std::vector<std::string>& prefixs) {
+                std::vector<PString> pstring_prefixs;
+                for (const auto& p : prefixs) {
+                    pstring_prefixs.emplace_back(p);
+                }
+                return self.endswith(pstring_prefixs);
+            },
+            py::arg("prefixs")
+        )
         .def("expandtabs", &PString::expandtabs, py::arg("tabsize")=8)
 
         .def("count", &PString::count,
