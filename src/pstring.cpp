@@ -610,8 +610,11 @@ std::vector<PString> PString::splitlines(bool keepends) const
     std::vector<PString> result;
     size_t pos = 0;
     size_t prevPos = 0;
-    // support \r \n \r\n \v \f \x1c \x1d \x1e \x85 \u2028 \u2029
-    while ((pos = str_.find_first_of("\r\n\v\f\x1c\x1d\x1e\x85\u2028\u2029", prevPos)) != std::string::npos)
+    if(str_.empty()){
+        return result;
+    }
+    // support \r \n \r\n \v \f \x1c \x1d \x1e \x85
+    while ((pos = str_.find_first_of("\r\n\v\f\x1c\x1d\x1e\x85", prevPos)) != std::string::npos)
     {
         if (str_[pos] == '\r' && pos + 1 < str_.size() && str_[pos + 1] == '\n')
         {
@@ -633,7 +636,7 @@ std::vector<PString> PString::splitlines(bool keepends) const
         }
         prevPos = pos + 1;
     }
-    if (prevPos <= str_.size())
+    if (prevPos < str_.size())
     {
         result.push_back(PString(str_.substr(prevPos)));
     }

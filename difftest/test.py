@@ -51,6 +51,8 @@ def run_tests():
         difftest(py_str.split(maxsplit=2), ps_str.split(maxsplit=2), "split(maxsplit=2)")
         difftest(py_str.rsplit(maxsplit=1), ps_str.rsplit(maxsplit=1), "rsplit(maxsplit=1)")
         difftest(py_str.splitlines(), ps_str.splitlines(), "splitlines")
+        difftest(py_str.splitlines(False), ps_str.splitlines(False), "splitlines")
+        difftest(py_str.splitlines(True), ps_str.splitlines(True), "splitlines")
         
         difftest(py_str.center(20, '*'), ps_str.center(20, '*'), "center")
         difftest(py_str.ljust(15), ps_str.ljust(15), "ljust")

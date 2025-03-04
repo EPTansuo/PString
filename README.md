@@ -59,7 +59,7 @@ g++ demo.cpp -lpstring -o demo
 - [x] `"\t\n\r\x0b\x0c".rstrip`
 - [x] `"\t\n\r\x0b\x0c".split`
 - [x] `"\t\n\r\x0b\x0c".rsplit`
-- [ ] `"\t\n\r\x0b\x0c".splitlines`
+- [x] `"\t\n\r\x0b\x0c".splitlines`
 
 Description:
 - [ ] means the bug haven't fixed yet.

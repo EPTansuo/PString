@@ -102,9 +102,29 @@ void bug_split(){
 	}
 }
 
+void bug_splitlines(){
+	{
+		PString input = "\t\n\r\x0b\x0c";
+		std::vector<PString> expected = {PString("\t"), PString(""),
+										 PString(""), PString("")};
+		auto result = input.splitlines();
+		bool veri = result.size() == 4 && result[0] == expected[0] && 
+											result[1] == expected[1] && 
+											result[2] == expected[2] && 
+											result[3] == expected[3];
+		if(!veri){
+						std::cout << input.repr() << ".splitlines()" FAILED << std::endl;
+						std::cout << "expected: " << expected << std::endl;
+						std::cout << "result:   " << input.splitlines() <<std::endl;
+		}
+		else        std::cout << input.repr() << ".splitlines()" SUCC  << std::endl;
+	}
+}
+
 void bug_list(){
 	bug_rstrip();
 	bug_rsplit();
 	bug_strip();
 	bug_split();
+	bug_splitlines();
 }
