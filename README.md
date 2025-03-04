@@ -51,7 +51,7 @@ g++ demo.cpp -lpstring -o demo
 ## Bug List 
 - [x] `" \r\n\thello world\t\r\n ".rstrip`
 - [x] `" \r\n\thello world\t\r\n ".rsplit`
-- [ ] `" \r\n\thello world\t\r\n ".expandtabs`
+- [x] `" \r\n\thello world\t\r\n ".expandtabs`
 - [x] `"'\"\\".strip`
 - [x] `"'\"\\".lstrip`
 - [x] `"\t\n\r\x0b\x0c".strip`
