@@ -98,7 +98,34 @@ void bug_split(){
 						std::cout << "result:   " << input.rsplit("", 1) <<std::endl;
 		}
 		else        std::cout << input.repr() << ".split()" SUCC  << std::endl;
+	}
+	{
+		PString input = "4t\x0cGF\x0cU";
+		std::vector<PString> expected = {PString("4t"), PString("GF"), PString("U")};
+		auto result = input.split();
+		bool veri = result.size() == 3 && result[0] == expected[0] && 
+											result[1] == expected[1] && 
+											result[2] == expected[2];
+		if(!veri){
+						std::cout << input.repr() << ".split()" FAILED << std::endl;
+						std::cout << "expected: " << expected << std::endl;
+						std::cout << "result:   " << result <<std::endl;
+		}
+		else        std::cout << input.repr() << ".split()" SUCC  << std::endl;
+	}
 
+	{
+		PString input = "4t\x0cGF\x0cU";
+		std::vector<PString> expected = {PString("4t"), PString("GF\x0cU")};
+		auto result = input.split("",1);
+		bool veri = result.size() == 2 && result[0] == expected[0] && 
+											result[1] == expected[1];
+		if(!veri){
+						std::cout << input.repr() << ".split(maxsplit=1)" FAILED << std::endl;
+						std::cout << "expected: " << expected << std::endl;
+						std::cout << "result:   " << result <<std::endl;
+		}
+		else        std::cout << input.repr() << ".split()" SUCC  << std::endl;
 	}
 }
 

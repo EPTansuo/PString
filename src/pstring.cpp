@@ -1,6 +1,7 @@
 #include <codecvt>
 #include <locale>
 #include <stdexcept>
+#include <unordered_set>
 #include <vector>
 #include <string>
 #include "pstring.h"
@@ -156,25 +157,29 @@ std::vector<PString> PString::split(const PString &sep, size_t maxsplit) const {
     size_t cnt = 0;
     std::vector<PString> result;
     if (sep.length() == 0) {
+        const std::unordered_set<char> chs= {' ', '\t', '\n', '\r', '\v', '\f'};
         while (cnt++ < maxsplit && pos < str_.size()) {
-            while (pos < str_.size() && (str_[pos] == ' ' || str_[pos] == '\t' || 
-                                        str_[pos] == '\n' || str_[pos] == '\r') || 
-                                        str_[pos] == '\v' || str_[pos] == '\f') {
+            while (pos < str_.size() && chs.find(str_[pos]) != chs.end()) {
                 pos++;
             }
             prevPos = pos;
 
-            while (pos < str_.size() && !(str_[pos] == ' ' || str_[pos] == '\t' || 
-                                        str_[pos] == '\n' || str_[pos] == '\r') ||
-                                        str_[pos] == '\v' || str_[pos] == '\f') {
+            while (pos < str_.size() && chs.find(str_[pos]) == chs.end()) {
                 pos++;
             }
 
             if (prevPos < pos) {
                 result.push_back(PString(str_.substr(prevPos, pos - prevPos)));
             }
-
         }
+
+        while (pos < str_.size() && chs.find(str_[pos]) != chs.end()) {
+            pos++;
+        }
+        if (pos < str_.size()) {
+            result.push_back(PString(str_.substr(pos)));
+        }
+
         return result;
         
     }

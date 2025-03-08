@@ -60,8 +60,8 @@ g++ demo.cpp -lpstring -o demo
 - [x] `"\t\n\r\x0b\x0c".split`
 - [x] `"\t\n\r\x0b\x0c".rsplit`
 - [x] `"\t\n\r\x0b\x0c".splitlines`
-- [ ] `"4t\x0cGF\x0cU'.split"`
-- [ ] `"4t\x0cGF\x0cU'.split(maxsplit=)"`
+- [x] `"4t\x0cGF\x0cU'.split"`
+- [x] `"4t\x0cGF\x0cU'.split(maxsplit=)"`
 
 Description:
 - [ ] means the bug haven't fixed yet.
