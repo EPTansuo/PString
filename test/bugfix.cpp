@@ -47,6 +47,31 @@ void bug_rsplit(){
 		else        std::cout << input.repr() << ".rsplit(maxsplit=1)" SUCC  << std::endl;
 	}
 
+	{
+		PString input = "\x0bW4inVjunmlP\t";
+		std::vector<PString> expected = {PString("W4inVjunmlP")};
+		auto result = input.rsplit("", 1);
+		bool veri = result.size() == 1 && result[0] == expected[0];
+		if(!veri){
+						std::cout << input.repr() << ".rsplit(maxsplit=1)" FAILED << std::endl;
+						std::cout << "expected: " << expected << std::endl;
+						std::cout << "result:   " << result <<std::endl;
+		}
+		else        std::cout << input.repr() << ".rsplit(maxsplit=1)" SUCC  << std::endl;
+	}
+
+	{
+		PString input = "9B7";
+		std::vector<PString> expected = {PString("9B7")};
+		auto result = input.rsplit("", 1);
+		bool veri = result.size() == 1 && result[0] == expected[0];
+		if(!veri){
+						std::cout << input.repr() << ".rsplit(maxsplit=1)" FAILED << std::endl;
+						std::cout << "expected: " << expected << std::endl;
+						std::cout << "result:   " << result <<std::endl;
+		}
+		else        std::cout << input.repr() << ".rsplit(maxsplit=1)" SUCC  << std::endl;
+	}
 }
 
 void bug_strip(){

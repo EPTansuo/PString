@@ -590,51 +590,54 @@ std::vector<PString> PString::rpartition(const PString &sep) const
     return result;
 }
 
-std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const
-{
+std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const {
     size_t pos = 0;
     size_t prevPos = str_.size();
     size_t cnt = 0;
 
     std::vector<PString> result;
     std::vector<PString> result_rev;
-    if(sep.empty()){
-        std::string sep_ = " \r\t\n\v\f";
-        while(cnt < maxsplit && ((pos = str_.find_last_of(sep_, prevPos - 1)) != std::string::npos)){
-            if(pos == 0) break;
-            PString to_append = PString(str_.substr(pos + 1, prevPos - pos - 1));
-            prevPos = pos;
-            if(!to_append.rstrip().empty()){
-                result_rev.emplace_back(to_append.rstrip());
+    const std::string whitespace = " \t\n\r\v\f";
+
+    if (sep.empty()) {
+        while (cnt < maxsplit && prevPos > 0) {
+            size_t end = prevPos;
+            while (prevPos > 0 && whitespace.find(str_[prevPos - 1]) != std::string::npos) {
+                prevPos--;
+            }
+            if (prevPos == 0) break;
+
+            pos = str_.find_last_of(whitespace, prevPos - 1);
+            
+            PString segment = this->substr(pos + 1, prevPos - pos - 1).rstrip();
+            if (!segment.empty()) {
+                result_rev.push_back(segment);
                 cnt++;
             }
+            prevPos = pos;
         }
-    }
-    else{
-        while(cnt++ < maxsplit && (pos = str_.rfind(sep.str_, prevPos - 1)) != std::string::npos){
+
+        if (prevPos > 0 && prevPos != std::string::npos) {
+            PString remaining = this->substr(0, prevPos).rstrip();
+            if (!remaining.empty()) {
+                result_rev.push_back(remaining);
+            }
+        }
+    } else {
+        while (cnt++ < maxsplit && (pos = str_.rfind(sep.str_, prevPos - 1)) != std::string::npos) {
             result_rev.emplace_back(PString(str_.substr(pos + sep.length(), prevPos - pos - sep.length())));
             prevPos = pos;
         }
-    }
-    if (prevPos >= 0)
-    {
-        if(sep.empty()){
-            auto to_append = PString(str_.substr(0, prevPos)).rstrip();
-            if(!to_append.empty()){
-                result_rev.emplace_back(to_append);
-            }
-        }
-        else{
+        if (prevPos > 0  && prevPos != std::string::npos ) {
             result_rev.emplace_back(PString(str_.substr(0, prevPos)));
         }
     }
-    for (auto it = result_rev.rbegin(); it != result_rev.rend(); it++)
-    {
+
+    for (auto it = result_rev.rbegin(); it != result_rev.rend(); ++it) {
         result.push_back(*it);
     }
     return result;
 }
-
 std::vector<PString> PString::splitlines(bool keepends) const
 {
     std::vector<PString> result;
