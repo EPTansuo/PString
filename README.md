@@ -63,6 +63,7 @@ g++ demo.cpp -lpstring -o demo
 - [x] `"4t\x0cGF\x0cU'.split"`
 - [x] `"4t\x0cGF\x0cU'.split(maxsplit=)"`
 - [x] `'\x0bW4inVjunmlP\t'.rsplit(maxsplit=1)"`
+- [x] `'AFv\tDE4x8Y19\x0c VsIV7PlYwV6dk1xn0 Ik'.rsplit('A', maxsplit=1)`
 
 Description:
 - [ ] means the bug haven't fixed yet.

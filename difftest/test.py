@@ -35,7 +35,7 @@ def run_tests():
         ("'\"\\", "Escape characters"),
     ]
 
-    for i in range(100):
+    for i in range(1000):
         test_cases.append(tuple([random_str(), f"random_test{i}"]))
 
     for test_str, case_name in test_cases:
@@ -59,7 +59,14 @@ def run_tests():
 
         difftest(test_str, py_str.split(), ps_str.split(), "split")
         difftest(test_str, py_str.split(maxsplit=2), ps_str.split(maxsplit=2), "split(maxsplit=2)")
+        difftest(test_str, py_str.split(maxsplit=4), ps_str.split(maxsplit=4), "split(maxsplit=4)")
+        difftest(test_str, py_str.split('E',maxsplit=3), ps_str.split('E',maxsplit=3), "split('E', maxsplit=3)")
         difftest(test_str, py_str.rsplit(maxsplit=1), ps_str.rsplit(maxsplit=1), "rsplit(maxsplit=1)")
+        difftest(test_str, py_str.rsplit(maxsplit=2), ps_str.rsplit(maxsplit=2), "rsplit(maxsplit=2)")
+        difftest(test_str, py_str.rsplit(maxsplit=3), ps_str.rsplit(maxsplit=3), "rsplit(maxsplit=3)")
+        difftest(test_str, py_str.rsplit('A',maxsplit=1), ps_str.rsplit('A',maxsplit=1), "rsplit('A', maxsplit=1)")
+        difftest(test_str, py_str.rsplit('B',maxsplit=2), ps_str.rsplit('B',maxsplit=2), "rsplit('B', maxsplit=2)")
+        difftest(test_str, py_str.rsplit('C',maxsplit=3), ps_str.rsplit('C',maxsplit=3), "rsplit('C', maxsplit=3)")
         difftest(test_str, py_str.splitlines(), ps_str.splitlines(), "splitlines")
         difftest(test_str, py_str.splitlines(False), ps_str.splitlines(False), "splitlines")
         difftest(test_str, py_str.splitlines(True), ps_str.splitlines(True), "splitlines")

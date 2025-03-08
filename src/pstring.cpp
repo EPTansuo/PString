@@ -594,10 +594,13 @@ std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const 
     size_t pos = 0;
     size_t prevPos = str_.size();
     size_t cnt = 0;
-
+    
     std::vector<PString> result;
     std::vector<PString> result_rev;
     const std::string whitespace = " \t\n\r\v\f";
+
+    if(this->empty() && sep.empty()) return {};
+    if(this->empty() && !sep.empty()) return {""};
 
     if (sep.empty()) {
         while (cnt < maxsplit && prevPos > 0) {
@@ -615,6 +618,7 @@ std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const 
                 cnt++;
             }
             prevPos = pos;
+            if(prevPos == std::string::npos) break;
         }
 
         if (prevPos > 0 && prevPos != std::string::npos) {
@@ -624,12 +628,17 @@ std::vector<PString> PString::rsplit(const PString &sep, size_t maxsplit) const 
             }
         }
     } else {
-        while (cnt++ < maxsplit && (pos = str_.rfind(sep.str_, prevPos - 1)) != std::string::npos) {
-            result_rev.emplace_back(PString(str_.substr(pos + sep.length(), prevPos - pos - sep.length())));
+          while (cnt < maxsplit) {
+            pos = str_.rfind(sep.str_, prevPos - 1);
+            if (pos == std::string::npos) break;
+
+            result_rev.emplace_back(str_.substr(pos + sep.length(), prevPos - pos - sep.length()));
             prevPos = pos;
+            if(prevPos == 0) break;
+            cnt++;
         }
-        if (prevPos > 0  && prevPos != std::string::npos ) {
-            result_rev.emplace_back(PString(str_.substr(0, prevPos)));
+        if(prevPos != std::string::npos) {
+            result_rev.emplace_back(str_.substr(0, prevPos));
         }
     }
 
