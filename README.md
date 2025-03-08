@@ -62,6 +62,7 @@ g++ demo.cpp -lpstring -o demo
 - [x] `"\t\n\r\x0b\x0c".splitlines`
 - [x] `"4t\x0cGF\x0cU'.split"`
 - [x] `"4t\x0cGF\x0cU'.split(maxsplit=)"`
+- [ ] `'\x0bW4inVjunmlP\t'.rsplit(maxsplit=1)"`
 
 Description:
 - [ ] means the bug haven't fixed yet.
