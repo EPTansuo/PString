@@ -189,6 +189,7 @@ private:
 
 PString operator+(const char* lhs, const PString& rhs);
 PString operator+(const std::string& lhs, const PString& rhs);
+PString operator+(char lhs, const PString& rhs);
 
 namespace std {
     template <>

@@ -998,3 +998,8 @@ PString operator+(const std::string &lhs, const PString &rhs)
     return PString(lhs) + rhs;
 }
 
+
+PString operator+(char lhs, const PString& rhs)
+{
+    return PString(lhs) + rhs;
+}

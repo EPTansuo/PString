@@ -271,6 +271,9 @@ int main(){
     PString str_substr_test = "Hello, World!";
     cout << str_substr_test.repr() + ".substr(7) = " << str_substr_test.substr(7).repr() << endl;
 
+    PString str_add_char = "abc";
+    cout << '1' + str_add_char << endl;
+
 		bug_list();
 
     return 0;
