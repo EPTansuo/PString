@@ -267,7 +267,10 @@ int main(){
     std::stringstream ss("Hello,World!");
     ss >> str_sstream_in;
     cout << "str_sstream_in = " << str_sstream_in << endl;
-	
+    
+    PString str_substr_test = "Hello, World!";
+    cout << str_substr_test.repr() + ".substr(7) = " << str_substr_test.substr(7).repr() << endl;
+
 		bug_list();
 
     return 0;

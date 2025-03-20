@@ -27,7 +27,7 @@ public:
 
 
     // C++-style substr() function: like std::string::substr()
-    PString substr(size_t start, size_t end=std::string::npos) const;
+    PString substr(size_t _pos = 0, size_t _n = std::string::npos) const;
     
     // Python-style slice
     PString slice(int start = 0, int stop=-1, int step = 1) const;

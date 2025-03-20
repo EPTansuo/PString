@@ -220,8 +220,8 @@ PString PString::center(size_t width, char fillchar) const {
     return PString(std::string(padLeft, fillchar) + str_ + std::string(padRight, fillchar));
 }
 
-PString PString::substr(size_t start, size_t end) const {
-    return PString(str_.substr(start, end));
+PString PString::substr(size_t _pos, size_t _n) const {
+    return PString(str_.substr(_pos, _n));
 }
 
 
