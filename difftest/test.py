@@ -115,6 +115,12 @@ def run_tests():
         difftest(test_str, py_str * 3, ps_str * 3, "*")
         difftest(test_str, py_str + py_str, ps_str + ps_str, "+")
         difftest(test_str, py_str[1:-1], ps_str[1:-1], "silice")
+
+        slice_end = random.randint(1, max(len(py_str)*2,2));
+        difftest(test_str, py_str[1:slice_end], ps_str[1:slice_end], "silice")
+        
+        difftest(test_str, py_str[min(len(py_str)-1, slice_end):], 
+                 ps_str[min(len(py_str)-1, slice_end):], "silice")
         
         # nfc_str = unicodedata.normalize('NFC', py_str)
         # nfd_str = unicodedata.normalize('NFD', py_str)
